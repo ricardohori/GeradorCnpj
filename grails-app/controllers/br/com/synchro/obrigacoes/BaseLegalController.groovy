@@ -5,6 +5,7 @@ import br.com.synchro.api.utils.TargetApplication
 import br.com.synchro.baseLegal.EstruturacaoBaseLegal
 import org.hibernate.Session
 import br.com.synchro.api.gateway.controller.IntegrationController
+import br.com.synchro.framework.model.serializer.gateway.JsonApi
 
 /**
  * <pre>

@@ -1,6 +1,27 @@
 package br.com.synchro.baseLegal
 
+import br.com.synchro.ext.util.ExtUtils
+
 class EstruturacaoBaseLegal {
+
+    static expose = 'estruturacaoBaseLegal'
+
+    static api = [
+            list : { params ->
+                EstruturacaoBaseLegal.createCriteria().list(params){
+                    ExtUtils.decodeFilterParams(params).each{k,v->
+                        ilike k, "%${v}%" as String
+                    }
+                }
+            },
+            count: {params ->
+                EstruturacaoBaseLegal.createCriteria().count{
+                    ExtUtils.decodeFilterParams(params).each{k,v->
+                        ilike k, "%${v}%" as String
+                    }
+                }
+            }
+    ]
 
     String obrigacao
     String identificadorOrgaoLegal
