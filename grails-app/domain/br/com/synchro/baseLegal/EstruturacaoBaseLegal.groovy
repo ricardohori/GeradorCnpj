@@ -1,6 +1,7 @@
 package br.com.synchro.baseLegal
 
 import br.com.synchro.ext.util.ExtUtils
+import br.com.synchro.framework.model.serializer.gateway.JsonApi
 
 class EstruturacaoBaseLegal {
 
@@ -8,6 +9,11 @@ class EstruturacaoBaseLegal {
 
     static api = [
             list : { params ->
+                if(params.sort.toString().startsWith("[")){
+                    final sort = JsonApi.defaultBuilder().build().deserialize(params.sort.toString(), List)
+                    params.sort = sort[0].property
+                    params.order = sort[0].direction
+                }
                 EstruturacaoBaseLegal.createCriteria().list(params){
                     ExtUtils.decodeFilterParams(params).each{k,v->
                         ilike k, "%${v}%" as String
